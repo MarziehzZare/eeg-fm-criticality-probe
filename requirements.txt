@@ -1,0 +1,13 @@
+numpy
+scipy
+scikit-learn
+pandas
+matplotlib
+torch
+mne
+braindecode
+huggingface_hub
+transformers
+einops
+neuroCombat
+specparam

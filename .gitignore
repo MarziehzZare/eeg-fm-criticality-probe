@@ -1,0 +1,58 @@
+# ── Data, embeddings, and results are never committed ──────────────────
+data/
+results/
+
+# Raw EEG / signal formats
+*.edf
+*.bdf
+*.set
+*.fdt
+*.csv
+*.vhdr
+*.vmrk
+*.eeg
+
+# Cached arrays, embeddings, targets, and pickled intermediates
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+
+# Model weights / checkpoints (downloaded at runtime, never redistributed)
+models/**/*.pt
+models/**/*.pth
+models/**/*.ckpt
+models/**/*.safetensors
+models/**/*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+weights/
+
+# Hugging Face / torch caches
+.cache/
+huggingface/
+
+# ── Python ─────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# ── Editor / OS ────────────────────────────────────────────────────────
+.DS_Store
+.idea/
+.vscode/
+.ipynb_checkpoints/

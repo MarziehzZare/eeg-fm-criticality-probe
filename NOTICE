@@ -1,0 +1,73 @@
+LRTC-EEG-FM
+Copyright 2026 Marzieh Zare
+
+This product includes original analysis and wrapper code licensed under the
+Apache License, Version 2.0 (see LICENSE).
+
+It does NOT redistribute any pretrained model weights. All model weights are
+downloaded at runtime from their upstream sources (Hugging Face Hub /
+braindecode) under their own licenses.
+
+================================================================================
+THIRD-PARTY COMPONENTS
+================================================================================
+
+1. CBraMod model architecture (src/cbramod_wrapper.py)
+--------------------------------------------------------------------------------
+The CBraMod model architecture classes in src/cbramod_wrapper.py are adapted
+from the upstream CBraMod reference implementation:
+
+    https://github.com/wjq-learning/CBraMod
+    Wang et al., "CBraMod: A Criss-Cross Brain Foundation Model for EEG
+    Decoding", ICLR 2025.
+
+Upstream license (reproduced in full as required by its terms):
+
+    MIT License
+
+    Copyright (c) 2025 Jiquan Wang
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+================================================================================
+FOUNDATION MODELS EVALUATED (weights downloaded at runtime, not redistributed)
+================================================================================
+
+- REVE (REVE-Base) — El Ouahidi et al., NeurIPS 2025 (arXiv:2510.21585).
+  Weights: Hugging Face `brain-bzh/reve-base`. Loaded via transformers with
+  trust_remote_code=True (upstream modeling code is fetched and executed at
+  runtime; see that model card for its license).
+- LaBraM — Jiang et al., ICLR 2024 (github.com/935963004/LaBraM).
+  Weights: `braindecode/labram-pretrained`.
+- BENDR — Kostas et al., Frontiers in Human Neuroscience 2021
+  (github.com/SPOClab-ca/BENDR). Weights: `braindecode/braindecode-bendr`.
+- CBraMod — Wang et al., ICLR 2025 (see attribution above).
+  Weights: `weighting666/CBraMod`.
+- BIOT — Yang et al., NeurIPS 2023 (github.com/ycq091044/BIOT).
+  Weights: `braindecode/biot-pretrained-six-datasets-18chs`.
+
+================================================================================
+CORE LIBRARIES
+================================================================================
+
+- braindecode (BSD-3-Clause) — model loading and reference implementations.
+- MNE-Python (BSD-3-Clause) — EEG preprocessing, montages, and I/O.
+- Hugging Face Hub / Transformers (Apache-2.0) — model/weight download/loading.
+- NumPy, SciPy, scikit-learn, pandas, matplotlib (BSD-family licenses).
+- neuroCombat, specparam/FOOOF — see their respective repositories for licenses.
