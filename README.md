@@ -127,6 +127,42 @@ run the encoding / transfer / site-decoding scripts (which cache target and feat
 `fig_predicted_vs_true_dfa.py`. Most scripts print their output path and accept `--out` /
 `--n` / `--perms` overrides; run with `-h` for details.
 
+## Synthetic validation of the proposed loss (Section 5)
+
+`scripts/analysis/lrtc_synthetic_validation.py` is a **self-contained** harness for the
+LRTC-aware auxiliary loss proposed in Section 5 — it needs no EEG data. It generates fractional
+Gaussian noise (fGn) of known Hurst exponent, trains a small masked-reconstruction transformer
+with and without the auxiliary loss, and probes whether the frozen embedding recovers the
+exponent. Requires `numpy`, `torch`, `scikit-learn`.
+
+```bash
+python scripts/analysis/lrtc_synthetic_validation.py --compare-all
+```
+
+Four modes: `baseline`, `lrtc_correct`, `lrtc_linearity_only`, and `lrtc_fixed_target` (an
+explicit **negative control** implementing the fixed-target loss the paper argues against).
+
+**Honest status — this run does _not_ validate the loss.** On pure fGn the Hurst exponent is the
+entire signal, so masked reconstruction already recovers it near-ceiling (baseline R² ≈ 0.93);
+with no deficit to rescue, every auxiliary variant lands slightly _below_ baseline and the
+negative control is not worse than the correct variant:
+
+| mode | frozen-embedding probe R² |
+|------|---------------------------|
+| baseline            | 0.935 |
+| lrtc_correct        | 0.892 |
+| lrtc_linearity_only | 0.826 |
+| lrtc_fixed_target   | 0.909 |
+
+This is a property of the _test_, not of the loss: pure fGn removes the very confound (LRTC
+competing with dominant spectral/oscillatory structure) that makes real EEG foundation models
+blind to LRTC. A faithful test needs a synthetic input in which the dominant power is spectral
+and only a weak component carries the target scaling exponent, so that the baseline is genuinely
+blind and the auxiliary loss has something to rescue. That experiment, and a single-model
+head-retrained pilot on a pretrained encoder, are left to future work. The fGn generator and DFA
+estimator themselves are validated (`validate_generator()`: r(H, α_DFA) ≈ 0.95, unbiased) — run
+them first before trusting any downstream number.
+
 ## Citation
 
 If you use this code, please cite the paper (full reference to be finalised on acceptance):
