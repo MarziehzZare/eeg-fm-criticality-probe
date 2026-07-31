@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """P0.2 — honest error bars + permutation nulls for the cross-population transfer matrix.
 
 The original `cross_population_criticality.py` reports transfer AUROC from a SINGLE fit with a

@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """3-cohort cross-population transfer — does a 3rd cohort (BrainLat) power the claim?
 
 The 2-cohort P0.2 result was underpowered (1/8 criticality cells survive Holm; W->K direction

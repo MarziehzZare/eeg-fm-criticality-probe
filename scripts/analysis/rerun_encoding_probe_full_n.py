@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Rerun the CAUEEG encoding probe (Table 2 of the LRTC paper) at the full
 available N instead of the original N=200 cap, using only the three probes
 Table 2 actually reports (ridge_linear_full, hist_gboost, random_forest) so

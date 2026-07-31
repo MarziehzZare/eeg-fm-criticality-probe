@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """P1.1 addendum — matched random-Gaussian null for the frozen-REVE site probe.
 
 The site probe in lrtc_p1_1_irrecoverability.py recovers cohort identity from

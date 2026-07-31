@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Site-decodability of the DFA exponent and classical features (paper Sec 4.5).
 
 The paper contrasts the frozen FM embedding (decodes recording site at 0.98-1.00)

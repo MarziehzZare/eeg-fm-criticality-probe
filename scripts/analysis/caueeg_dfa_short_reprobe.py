@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """CAUEEG DFA_short re-probe at N=770 (confound-resolution check for paper Sec 4.1).
 
 The paper reports that CBraMod/BIOT recover CAUEEG DFA (0.18/0.25 on the full

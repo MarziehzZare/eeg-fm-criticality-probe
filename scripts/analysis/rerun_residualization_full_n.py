@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Rerun the DFA-vs-1/f residualization check (LRTC-not-a-shadow-of-aperiodic
 claim, paper Sec. 4.3) at the full N=770 CAUEEG sample instead of the original
 N=200, reusing the already-cached targets and embeddings (no raw EEG re-read).

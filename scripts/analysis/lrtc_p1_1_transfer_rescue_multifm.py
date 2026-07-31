@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """P1.1 arm (c) multi-FM extension -- transfer-rescue for LaBraM, CBraMod, BIOT, BENDR.
 
 lrtc_p1_1_transfer_rescue.py answers "does leakage-safe harmonization rescue

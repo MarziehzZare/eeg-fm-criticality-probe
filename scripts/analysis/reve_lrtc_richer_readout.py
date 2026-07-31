@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """C4-strengthened — how much LRTC does a *richer* order-preserving readout
 recover from REVE's pre-pool token sequence?
 

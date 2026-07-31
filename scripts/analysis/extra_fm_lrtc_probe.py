@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Extend the LRTC encoding probe to more EEG foundation models: BENDR and LEAD.
 
 Adds two more architectures to the four already tested (REVE, CBraMod, LaBraM, BIOT):

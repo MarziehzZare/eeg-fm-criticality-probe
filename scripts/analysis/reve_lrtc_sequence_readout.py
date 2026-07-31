@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """C4 — does REVE *compute* LRTC but *discard* it at pooling?
 
 The deployed REVE embedding mean-pools over the patch-time token axis; mean is

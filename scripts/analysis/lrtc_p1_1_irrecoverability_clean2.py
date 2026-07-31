@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """P1.1 clean rerun — site-decoding + ComBat, restricted to pretraining-clean cohorts.
 
 lrtc_p1_1_irrecoverability.py's 3-cohort site probe (W_Greek, K_Korean, D_Dutch)

@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Cross-population criticality transfer — does scale-free temporal dynamics (LRTC/DFA)
 cross the population gap where foundation models collapse?
 

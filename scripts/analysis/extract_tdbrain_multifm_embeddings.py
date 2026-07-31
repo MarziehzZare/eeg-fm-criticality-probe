@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Extract LaBraM / CBraMod / BIOT / BENDR subject-mean embeddings on TDBRAIN.
 
 Second piece of the multi-FM transfer/site-dominance gap (after ds004504):

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Short-range DFA surrogate controls on BrainLat (paper Sec 4.1 / Methods).
 
 The 0.5-2 s DFA range used on BrainLat is only ~0.6 decades and the 8-13 Hz

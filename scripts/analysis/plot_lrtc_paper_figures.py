@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Generate the mechanism figures for the LRTC paper (docs/paper/paper-02/).
 
 Reads the cross-population result JSONs and renders three publication figures:

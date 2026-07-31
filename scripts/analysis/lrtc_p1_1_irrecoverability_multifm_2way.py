@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """P1.1 multi-FM site-decoding on the SAME leak-free 2-cohort binary task as REVE.
 
 lrtc_p1_1_irrecoverability_multifm.py runs the four non-REVE FMs on a 3-way site

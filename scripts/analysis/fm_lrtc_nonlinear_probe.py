@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """P0.1 — Does the "FM is blind to LRTC" result survive NON-LINEAR probes?
 
 The multi-FM encoding probe (`multifm_lrtc_encoding.json`) used a *linear* ridge

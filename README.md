@@ -1,194 +1,262 @@
-# Foundation Models for EEG Are Blind to Long-Range Temporal Correlations
+# Cross-Cohort Spectral–Temporal Dissociation in Frozen EEG Foundation-Model Representations
 
-Research code accompanying the manuscript:
+Reproducibility code for the revised Paper 02 manuscript:
 
-> **Foundation Models for EEG Are Blind to Long-Range Temporal Correlations: A Candidate Mechanism for Their Cross-Population Fragility**
-> (submitted to the *Journal of Neural Engineering*)
+> **Cross-Cohort Spectral–Temporal Dissociation in Frozen EEG Foundation-Model Representations**
 
-## Summary
+The existing [arXiv record](https://arxiv.org/abs/2607.24834) may continue to
+show v1 until the replacement is processed. This repository already reflects
+the v2 analysis and interpretation.
 
-Pretrained EEG foundation models (FMs) generalise poorly across recording sites and clinical
-populations. This repository contains the analysis code behind a candidate mechanistic explanation:
-frozen FM embeddings do not encode the **scale-free temporal dynamics** of the signal — specifically
-the alpha-envelope long-range temporal correlation (LRTC) exponent measured by detrended fluctuation
-analysis (DFA) — even though a simple classical feature set recovers it. The code (i) probes whether
-five frozen encoders (REVE, LaBraM, CBraMod, BIOT, BENDR) linearly or non-linearly encode the
-per-subject DFA/LRTC exponent versus the static 1/f aperiodic slope; (ii) tests whether the
-DFA exponent transfers disease-vs-control classification across cohorts where the FMs collapse;
-(iii) shows that recording-site identity dominates the frozen embedding and is not removed by
-harmonisation (ComBat), so cross-population transfer is not rescued; and (iv) asks, as a
-mechanistic control, whether REVE *computes* LRTC in its pre-pool token sequence but *discards* it
-at mean-pooling. Baselines, permutation nulls, matched Gaussian nulls, split-half reliability
-ceilings, and leakage-safe harmonisation controls are included so the negative ("not encoded")
-results can be scrutinised.
+## Revision status
 
-**This is a code-only release.** No EEG recordings, no derived embeddings, no cached
-intermediate results, no figures, and no model weights are distributed. Every input must be
-obtained from its original custodian and every intermediate regenerated locally (see below).
+Version 2 is a substantive correction, not a cosmetic update.
 
-## Data availability
+The v1 universal claim that EEG foundation models are “blind” to long-range
+temporal correlations is withdrawn. The proposed causal explanation of
+cross-population fragility is also withdrawn. The revised evidence supports a
+narrower result:
 
-**No EEG data, no derived embeddings, and no result files are included in this repository.**
-All datasets are third-party and must be obtained directly from their custodians under each
-custodian's own access terms. Pretrained model weights are downloaded at runtime from their
-original hosts (Hugging Face) by the wrappers in `src/` and are likewise not redistributed here.
+- CBraMod and BIOT decode the fixed-mode aperiodic exponent in both evaluated
+  cohorts.
+- Recovery of the revised alpha-envelope DFA target is model- and
+  cohort-dependent.
+- A post-hoc ordered-versus-shuffled sequence probe is configuration-sensitive.
+  Its tail proportions are descriptive because chronological EEG epochs are
+  not exchangeable.
+- Order sensitivity does not isolate LRTC; non-stationarity, arousal drift,
+  local continuity, artifact clustering, and recording-position effects remain
+  alternatives.
+- Cross-cohort transfer and causal mechanisms remain exploratory.
 
-| Cohort | Population / domain | Used for | How to obtain |
-| --- | --- | --- | --- |
-| **ds004504** | Greek — Alzheimer's / FTD / healthy | Encoding probe, cross-population transfer, site decoding | Open access on **OpenNeuro** (accession `ds004504`). |
-| **CAUEEG** | Korean — dementia / MCI / normal | Encoding probe, DFA reliability, transfer, site decoding | Restricted; requires a **signed data-use agreement** with the dataset custodians. |
-| **TDBRAIN** | Dutch — psychiatric cohort | Multi-FM site decoding / embedding extraction | **Synapse** registration and access approval. Note: TDBRAIN is in REVE's own pretraining corpus and is therefore excluded from all REVE-embedding claims in the paper. |
-| **BrainLat** | Latin-American — Alzheimer's + bvFTD / healthy | 3-cohort transfer, encoding probe | **Synapse** registration and access approval. |
-| **ASZED-153** | Nigerian — schizophrenia | Auxiliary (short recordings; excluded from the main site/transfer arms) | **OpenNeuro / Zenodo**. |
+See [V2_SUPERSESSION.md](V2_SUPERSESSION.md) for the complete correction record
+and [LEGACY_V1.md](LEGACY_V1.md) before using any historical script.
+The v1 code is preserved in git history and tagged `paper02-v1-code`.
 
-Follow each provider's licence and citation requirements. Nothing in this repository grants access
-to, or redistributes, any of these datasets.
+## Critical statistical correction
+
+An earlier exploratory implementation generated a different shuffled dataset
+for each configuration:
+
+```text
+shuffle_seed = 1000 + 97*k + c
+```
+
+That changed the cross-configuration covariance of the reference statistic.
+Its tail values are invalid for the intended matched statistic and must not be
+quoted. The corrected implementation uses one subject-wise shuffled
+realization for every configuration in a Monte Carlo draw:
+
+```text
+shuffle_seed = 1000 + k
+```
+
+The canonical output reports `tau_MC` as a descriptive shuffle-reference tail
+proportion. It is not treated as an LRTC-specific p-value, and no Holm or other
+family-wise rejection procedure is applied to it.
+
+## What is distributed
+
+This is a code-only release. It contains:
+
+- the calibrated alpha-envelope DFA estimator and QC utilities;
+- revised target extraction, encoding, aperiodic-orthogonality, demographic,
+  site-decoding, and transfer scripts;
+- corrected matched-realization order-control code;
+- the canonical evidence consolidator and figure generator; and
+- unit and regression tests that require no restricted EEG data.
+
+It does **not** contain EEG recordings, derived embeddings, result JSON/NPZ
+files, figures, or model weights. Generated `data/` and `results/` trees are
+ignored by git.
+
+## Data access
+
+| Cohort | Role in v2 | Access |
+| --- | --- | --- |
+| CAUEEG | DFA target, encoding, aperiodic comparison, order control | Restricted; obtain from the dataset custodians under their data-use agreement |
+| BrainLat | DFA target, encoding, aperiodic comparison, transfer | Synapse registration and approval |
+| ds004504 | Context and legacy analyses; not part of the two-cohort v2 DFA encoding result | OpenNeuro accession `ds004504` |
+| TDBRAIN | Legacy/context analyses only | Synapse registration and approval |
+| ASZED-153 | Excluded from confirmatory cross-population inference | Obtain from its original custodian |
+
+Nothing in this repository grants access to, or redistributes, third-party
+data.
 
 ## Installation
 
-Tested with Python 3.12 on macOS (Apple Silicon, PyTorch `mps`; CPU fallback works everywhere).
-
-Using conda:
+The producing environment used Python 3.12. A clean environment can be created
+with:
 
 ```bash
 conda create -n neurogenis python=3.12
 conda activate neurogenis
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
-Using pip / venv:
+The wrappers download public pretrained weights from their original hosts at
+runtime. Review each upstream model card and license before use.
+
+Run the data-independent checks first:
 
 ```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+pytest -q
+python -m compileall -q src scripts
 ```
 
-Notes:
-- `braindecode`, `transformers`, and `huggingface_hub` download pretrained weights
-  (REVE, LaBraM, CBraMod, BIOT, BENDR) on first use; a network connection and sufficient disk
-  space are required the first time each model is loaded.
-- `neuroCombat` provides the harmonisation (ComBat) arm; `specparam` provides the 1/f aperiodic
-  fit. If either is missing, the affected arm degrades gracefully or is skipped with a note in the
-  output JSON.
+## Canonical v2 script map
 
-## Repository layout
+Only the files in this table produce or package the revised claims. Other
+analysis files remain in history for auditability and must not be used to
+recreate v2 conclusions.
 
-```
-poc/
-├── src/                                  # Reusable library code
-│   ├── embeddings.py                     # LaBraM loading/adaptation + shared capture-hook utility
-│   ├── reve_wrapper.py                   # REVE-Base loader + frozen embedding extraction
-│   ├── cbramod_wrapper.py                # CBraMod model definition + loader + extraction
-│   ├── biot_wrapper.py                   # BIOT loader + extraction (braindecode)
-│   ├── bendr_wrapper.py                  # BENDR loader + extraction (braindecode)
-│   ├── baselines.py                      # Classical features (band power, Hjorth, spectral entropy)
-│   ├── io_safety.py                      # Path-whitelisted, SHA-256-audited pickle/npz loaders
-│   └── runs.py                           # Optional run-manifest mirroring (no-op unless POC_RUN_DIR set)
-├── scripts/analysis/                     # The analysis scripts for this paper (see "Script map")
-├── data/                                 # NOT SHIPPED — you provide raw EEG + generate embeddings
-│   ├── raw/                              #   raw cohort files (ds004504, caueeg-dataset, tdbrain, ...)
-│   ├── processed/                        #   preprocessed epoch caches (e.g. alzheimer_processed.pkl)
-│   └── embeddings/                       #   cached FM/classical subject-mean embeddings (*.npz)
-└── results/cross_population/             # NOT SHIPPED — regenerated by the analysis scripts
-```
+| Stage | Script | Purpose |
+| --- | --- | --- |
+| Estimator validation | `src/lrtc.py`, `paper02_filter_calibration.py` | FIR/Hilbert/DFA implementation and simulation calibration |
+| Target extraction | `paper02_extract_dfa_v2.py` | Fixed 240-s target, artifact mask, per-channel QC, explicit eligibility |
+| Primary encoding | `paper02_primary_encoding_v2.py` | Fixed nested out-of-fold scaler → PCA → ridge readout |
+| Aperiodic control | `paper02_aperiodic_orthogonality_v2.py` | Fixed-mode aperiodic comparison and residualized sensitivity |
+| Confound audit | `paper02_demographic_audit.py` | Missingness and descriptive adjusted associations |
+| Site/transfer context | `paper02_dfa_site_v2.py`, `paper02_dfa_transfer_v2.py` | Exploratory dataset/site and two-cohort transfer analyses |
+| Sequence model | `paper02_sequence_probe.py` | Shared seeded 1D-CNN and ridge readouts |
+| Order reference | `paper02_prepool_order_permutation.py` | Corrected matched-realization chronological/shuffled comparison |
+| Packaging | `paper02_consolidate_prepool_results.py` | Five-model artifact, hashes, invariants, descriptive ledger |
+| Figures | `plot_paper02_v2.py` | Generate figures from revised artifacts |
 
-Only `src/` and `scripts/analysis/` contain code. Per-script configuration (device, model IDs,
-scale ranges, thresholds) is defined inline at the top of each script — there is no separate config
-file to edit. `data/` and `results/` are git-ignored and must be populated locally.
+The cache-builders `reve_prepool_token_probe.py` and
+`multifm_prepool_probe.py` must be invoked with `--extract-only` for v2.
+Their historical exploratory readout paths are retained solely to preserve the
+original cache construction and are not the canonical analysis.
 
-## How to run
+## Reproduction order
 
-All scripts are written to be executed **from the repository root** (imports use
-`from src.module import ...` and `import scripts.analysis... `):
+All commands run from the repository root.
+
+### 1. Validate the estimator
 
 ```bash
-cd poc
-python scripts/analysis/<script>.py
+pytest -q tests/test_lrtc.py
+python scripts/analysis/paper02_filter_calibration.py --n-simulations 1000
 ```
 
-Before any analysis script will run you must stage two things that are **not** included:
-
-1. **Raw EEG under `data/`** — e.g. `data/raw/ds004504/...` (`.set`), `data/raw/caueeg-dataset/...`
-   (`.edf` + `dementia.json`), `data/raw/tdbrain/...` (`.bdf`), plus preprocessed caches such as
-   `data/processed/alzheimer_processed.pkl`. Paths and montage handling are defined at the top of
-   each script.
-2. **Cached embeddings under `data/embeddings/`** — the transfer/site/encoding scripts read
-   frozen subject-mean embeddings as `*.npz` files (e.g. `caueeg_3way_reve_19ch_subjects.npz`,
-   `ds004504_3way_cbramod_19ch_subjects.npz`). Generate these first with
-   `scripts/analysis/extract_ds004504_multifm_embeddings.py` and
-   `scripts/analysis/extract_tdbrain_multifm_embeddings.py` (and the upstream REVE/classical
-   extraction used by the project's evaluation pipeline). The extractors download pretrained
-   weights and run inference on your local copy of the raw data.
-
-Typical order of operations: obtain raw data → extract embeddings into `data/embeddings/` →
-run the encoding / transfer / site-decoding scripts (which cache target and feature matrices into
-`results/cross_population/`) → render figures with `plot_lrtc_paper_figures.py` and
-`fig_predicted_vs_true_dfa.py`. Most scripts print their output path and accept `--out` /
-`--n` / `--perms` overrides; run with `-h` for details.
-
-## Synthetic validation of the proposed loss (Section 5)
-
-`scripts/analysis/lrtc_synthetic_validation.py` is a **self-contained** harness for the
-LRTC-aware auxiliary loss proposed in Section 5 — it needs no EEG data. It generates fractional
-Gaussian noise (fGn) of known Hurst exponent, trains a small masked-reconstruction transformer
-with and without the auxiliary loss, and probes whether the frozen embedding recovers the
-exponent. Requires `numpy`, `torch`, `scikit-learn`.
+### 2. Extract the fixed v2 targets
 
 ```bash
-python scripts/analysis/lrtc_synthetic_validation.py --compare-all
+python scripts/analysis/paper02_extract_dfa_v2.py --cohort caueeg
+python scripts/analysis/paper02_extract_dfa_v2.py --cohort brainlat
 ```
 
-Four modes: `baseline`, `lrtc_correct`, `lrtc_linearity_only`, and `lrtc_fixed_target` (an
-explicit **negative control** implementing the fixed-target loss the paper argues against).
+Automatic QC is reproducible but does not replace blinded visual review of
+rejected recordings and a sample of retained recordings.
 
-**Honest status — this run does _not_ validate the loss.** On pure fGn the Hurst exponent is the
-entire signal, so masked reconstruction already recovers it near-ceiling (baseline R² ≈ 0.93);
-with no deficit to rescue, every auxiliary variant lands slightly _below_ baseline and the
-negative control is not worse than the correct variant:
+### 3. Run the fixed primary and diagnostic analyses
 
-| mode | frozen-embedding probe R² |
-|------|---------------------------|
-| baseline            | 0.935 |
-| lrtc_correct        | 0.892 |
-| lrtc_linearity_only | 0.826 |
-| lrtc_fixed_target   | 0.909 |
+```bash
+python scripts/analysis/paper02_primary_encoding_v2.py --cohort caueeg
+python scripts/analysis/paper02_primary_encoding_v2.py --cohort brainlat
+python scripts/analysis/paper02_aperiodic_orthogonality_v2.py
+python scripts/analysis/paper02_demographic_audit.py --cohort caueeg
+python scripts/analysis/paper02_demographic_audit.py --cohort brainlat
+python scripts/analysis/paper02_dfa_site_v2.py
+python scripts/analysis/paper02_dfa_transfer_v2.py
+```
 
-This is a property of the _test_, not of the loss: pure fGn removes the very confound (LRTC
-competing with dominant spectral/oscillatory structure) that makes real EEG foundation models
-blind to LRTC. A faithful test needs a synthetic input in which the dominant power is spectral
-and only a weak component carries the target scaling exponent, so that the baseline is genuinely
-blind and the auxiliary loss has something to rescue. That experiment, and a single-model
-head-retrained pilot on a pretrained encoder, are left to future work. The fGn generator and DFA
-estimator themselves are validated (`validate_generator()`: r(H, α_DFA) ≈ 0.95, unbiased) — run
-them first before trusting any downstream number.
+The bootstrap intervals condition on fixed out-of-fold predictions; they are
+not full-pipeline generalization intervals.
+
+### 4. Build pre-pool sequence caches
+
+```bash
+python scripts/analysis/reve_prepool_token_probe.py --n-per-class 150 --extract-only
+python scripts/analysis/multifm_prepool_probe.py --extract-only
+```
+
+### 5. Run the corrected matched-realization reference
+
+The released evidence used four configurations and 150 shuffle realizations for
+the primary cells:
+
+```bash
+python scripts/analysis/paper02_prepool_order_permutation.py \
+  --n-perm 150 --config-seeds 0 1 2 3 \
+  --models CBraMod BIOT --sensitivity-models CBraMod BIOT \
+  --out results/paper02/prepool_order_permutation_matched.json
+
+python scripts/analysis/paper02_prepool_order_permutation.py \
+  --n-perm 150 --config-seeds 0 1 2 3 \
+  --models REVE LaBraM BENDR --sensitivity-models \
+  --out results/paper02/prepool_order_permutation_matched_rest.json
+```
+
+The configuration-stability extension used eight additional configurations
+and the first 30 matched shuffles:
+
+```bash
+python scripts/analysis/paper02_prepool_order_permutation.py \
+  --n-perm 30 --config-seeds 4 5 6 7 8 9 10 11 \
+  --models CBraMod BIOT --sensitivity-models CBraMod BIOT \
+  --out results/paper02/prepool_order_permutation_extension_cfg4_11_K30.json
+```
+
+Consolidate only after all source artifacts are present:
+
+```bash
+python scripts/analysis/paper02_consolidate_prepool_results.py \
+  --primary results/paper02/prepool_order_permutation_matched.json \
+  --rest results/paper02/prepool_order_permutation_matched_rest.json \
+  --config-extension results/paper02/prepool_order_permutation_extension_cfg4_11_K30.json \
+  --out results/paper02/prepool_order_permutation_5model.json
+```
+
+The consolidator validates model membership, run dimensions, matched-shuffle
+metadata, configuration identities, and matrix shapes before combining inputs.
+It cannot reconstruct subject identity from historical artifacts because those
+artifacts did not store subject IDs; this limitation is recorded in the output.
+
+### 6. Render figures
+
+```bash
+python scripts/analysis/plot_paper02_v2.py
+```
+
+## Interpretation guardrails
+
+- Do not call a large tail fraction evidence of no order information.
+- Do not call a small tail fraction an LRTC-specific detection.
+- Do not choose a batch size because it yields the preferred result.
+- Do not describe BIOT as simply positive or null; its order increment is
+  setting-dependent.
+- Treat LaBraM's below-mean-predictor arms as uninformative, not negative.
+- Do not compare the pooled ridge and sequence CNN as a percentage of
+  “recoverable signal”; they are different readout architectures.
+- Do not describe the post-hoc tested-cell ledger as complete multiplicity
+  accounting.
+
+## Legacy code
+
+The repository history remains available so v1 can be audited. Scripts not
+listed in the canonical v2 map implement earlier exploratory targets, probe
+selection, transfer, or synthetic-loss analyses. They are not deleted, but
+their outputs do not support the revised paper unless explicitly regenerated
+through the v2 pipeline above.
 
 ## Citation
 
-If you use this code, please cite the paper (full reference to be finalised on acceptance):
+Until arXiv v2 is processed, cite the version explicitly:
 
 ```bibtex
-@article{zare_lrtc_eeg_fm_2026,
-  title   = {Foundation Models for EEG Are Blind to Long-Range Temporal Correlations:
-             A Candidate Mechanism for Their Cross-Population Fragility},
+@article{zare_spectral_temporal_2026,
+  title   = {Cross-Cohort Spectral--Temporal Dissociation in Frozen EEG
+             Foundation-Model Representations},
   author  = {Zare, Marzieh},
-  journal = {Journal of Neural Engineering},
+  journal = {arXiv preprint arXiv:2607.24834},
   year    = {2026},
-  note    = {Under review}
+  note    = {Version 2}
 }
 ```
 
-Please also cite the foundation-model papers and libraries listed in `NOTICE` when you use the
-corresponding wrappers.
+## License
 
-## License and attribution
-
-This repository's original analysis and wrapper code is licensed under the **Apache License 2.0**
-(see [`LICENSE`](LICENSE)).
-
-Third-party components carry their own licenses, reproduced in [`NOTICE`](NOTICE). In particular,
-the CBraMod model architecture in `src/cbramod_wrapper.py` is adapted from the upstream
-[CBraMod](https://github.com/wjq-learning/CBraMod) implementation (MIT License, © 2025 Jiquan Wang).
-Pretrained model weights are **not** redistributed here; they are downloaded at runtime from their
-original hosts under their own terms. No EEG dataset is covered by this repository's license — each
-cohort remains governed by its own custodian's access terms.
+Original repository code is licensed under Apache-2.0. Third-party model code
+and weights retain their upstream licenses; see [NOTICE](NOTICE).

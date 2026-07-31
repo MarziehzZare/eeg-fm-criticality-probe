@@ -1,3 +1,6 @@
+# LEGACY V1 / EXPLORATORY SCRIPT.
+# Retained for auditability; it does not produce the revised v2 claims.
+# See README.md and V2_SUPERSESSION.md before running it.
 """Split-half reliability of the alpha-envelope DFA_full exponent on CAUEEG.
 
 Addresses reviewer point #6: "narrow target range caps R^2" is not technically
