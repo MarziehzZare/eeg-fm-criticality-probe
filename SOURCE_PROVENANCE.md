@@ -6,8 +6,8 @@ record on 2026-07-31.
 | Object | Provenance |
 | --- | --- |
 | Public v1 repository tip | `a8d6622` |
-| Governed PoC source commit | `abc68975322c233711e1c427246921fbeb46b51d` |
-| Revised arXiv source archive SHA-256 | `94b20bfa4bbd64e41229eb9389f813c5a6f2840a82533c02004ef3a5f8dc5de5` |
+| Governed PoC source commit | `6b31b5f377a6a029bfd07bb4bc60cbdd7f07b407` |
+| Revised arXiv source archive SHA-256 | `4352f690967eb5abfad727db384e7e9cd39ed2edcb84e0d940530fa204bec90d` |
 | `src/lrtc.py` source commit | `9e6a7196d744d26eafcd460085ca6fb2921306cb` |
 | `src/lrtc.py` blob SHA-256 | `ff459454e346d7863dd1ef30da6da218100b80446e66a3b3a9138c24b6f380aa` |
 
