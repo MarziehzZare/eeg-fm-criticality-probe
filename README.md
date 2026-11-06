@@ -1,3 +1,28 @@
+# EEG foundation-model temporal probes
+
+## Current results: 4 November 2026
+
+The latest local study is **Window order in decoding alpha-amplitude dynamics
+from frozen EEG foundation models**. See the [current results and limitations](docs/latest-results/README.md)
+for the controlled synthetic experiment, exploratory real-EEG results, and the
+November 4 family-wise correction. Aggregate evidence and source hashes accompany
+that summary. This update was published on 6 November 2026.
+
+The latest adjusted REVE-versus-band-power contrast does not survive family-wise
+correction. Its simultaneous interval includes zero. CAUEEG comparisons remain
+descriptive because the evaluation sets are small and unique patients within
+partitions were not verified.
+
+The documentation below describes the **historical July 2026 Paper 02 v2
+release**, not the reproduction pipeline for the November study. Its arXiv
+status and citation text are historical. Do not mix its target definitions,
+cohorts, numerical results, or scripts with the current study. The original
+code-only policy applies to that historical release; the current update adds
+aggregate results only. A portable release of the newer analysis pipeline is
+not included in this update.
+
+---
+
 # Cross-Cohort Spectral–Temporal Dissociation in Frozen EEG Foundation-Model Representations
 
 Reproducibility code for the revised Paper 02 manuscript:

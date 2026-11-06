@@ -1,0 +1,152 @@
+{
+  "protocol_sha256": "750c58f2bf962e53ca8b1275f17f60dc558c97803003fc8e2bcbbdc3ec6a4b73",
+  "numpy": "1.26.4",
+  "v5_claims_sha256": "2941a41154af8296dabd6ce97ab9588008b81b4133c0dd63f10d371342888a0d",
+  "cohort": "ds004504",
+  "n": 45,
+  "n_bootstrap": 10000,
+  "seed": 20261104,
+  "note": "conditional on fixed out-of-fold predictions; omits refitting uncertainty",
+  "families": [
+    {
+      "family": "A_adjusted_only",
+      "size": 3,
+      "critical_value": 0.35900653139034544,
+      "contrasts": {
+        "adjusted: reve minus band power": {
+          "point": 0.12546721659178894,
+          "uncorrected_ci95": [
+            0.005935513587360015,
+            0.30928171041999075
+          ],
+          "uncorrected_excludes_zero": true,
+          "simultaneous_ci95": [
+            -0.2335393147985565,
+            0.4844737479821344
+          ],
+          "simultaneous_excludes_zero": false,
+          "familywise_p": 0.6009
+        },
+        "adjusted: labram minus band power": {
+          "point": -0.25152472503660217,
+          "uncorrected_ci95": [
+            -0.5028729571251995,
+            -0.01990926303742059
+          ],
+          "uncorrected_excludes_zero": true,
+          "simultaneous_ci95": [
+            -0.6105312564269476,
+            0.10748180635374327
+          ],
+          "simultaneous_excludes_zero": false,
+          "familywise_p": 0.1643
+        },
+        "adjusted: cbramod minus band power": {
+          "point": -0.5480375693110655,
+          "uncorrected_ci95": [
+            -0.9660485632494002,
+            -0.2884680266871876
+          ],
+          "uncorrected_excludes_zero": true,
+          "simultaneous_ci95": [
+            -0.907044100701411,
+            -0.18903103792072007
+          ],
+          "simultaneous_excludes_zero": true,
+          "familywise_p": 0.0083
+        }
+      }
+    },
+    {
+      "family": "B_adjusted_plus_unadjusted",
+      "size": 6,
+      "critical_value": 0.38950309988601534,
+      "contrasts": {
+        "adjusted: reve minus band power": {
+          "point": 0.12546721659178894,
+          "uncorrected_ci95": [
+            0.005935513587360015,
+            0.30928171041999075
+          ],
+          "uncorrected_excludes_zero": true,
+          "simultaneous_ci95": [
+            -0.2640358832942264,
+            0.5149703164778043
+          ],
+          "simultaneous_excludes_zero": false,
+          "familywise_p": 0.696
+        },
+        "adjusted: labram minus band power": {
+          "point": -0.25152472503660217,
+          "uncorrected_ci95": [
+            -0.5028729571251995,
+            -0.01990926303742059
+          ],
+          "uncorrected_excludes_zero": true,
+          "simultaneous_ci95": [
+            -0.6410278249226176,
+            0.13797837484941317
+          ],
+          "simultaneous_excludes_zero": false,
+          "familywise_p": 0.2207
+        },
+        "adjusted: cbramod minus band power": {
+          "point": -0.5480375693110655,
+          "uncorrected_ci95": [
+            -0.9660485632494002,
+            -0.2884680266871876
+          ],
+          "uncorrected_excludes_zero": true,
+          "simultaneous_ci95": [
+            -0.9375406691970809,
+            -0.15853446942505017
+          ],
+          "simultaneous_excludes_zero": true,
+          "familywise_p": 0.011
+        },
+        "unadjusted: reve minus band power": {
+          "point": 0.12230437827420149,
+          "uncorrected_ci95": [
+            -0.01578926720164344,
+            0.33542505210612417
+          ],
+          "uncorrected_excludes_zero": false,
+          "simultaneous_ci95": [
+            -0.26719872161181385,
+            0.5118074781602169
+          ],
+          "simultaneous_excludes_zero": false,
+          "familywise_p": 0.712
+        },
+        "unadjusted: labram minus band power": {
+          "point": -0.15194229974099027,
+          "uncorrected_ci95": [
+            -0.4355133071698598,
+            0.10704908694299874
+          ],
+          "uncorrected_excludes_zero": false,
+          "simultaneous_ci95": [
+            -0.5414453996270057,
+            0.23756080014502506
+          ],
+          "simultaneous_excludes_zero": false,
+          "familywise_p": 0.5712
+        },
+        "unadjusted: cbramod minus band power": {
+          "point": -0.6099376082303274,
+          "uncorrected_ci95": [
+            -1.046157524909513,
+            -0.3287607680157982
+          ],
+          "uncorrected_excludes_zero": true,
+          "simultaneous_ci95": [
+            -0.9994407081163428,
+            -0.22043450834431205
+          ],
+          "simultaneous_excludes_zero": true,
+          "familywise_p": 0.0056
+        }
+      }
+    }
+  ]
+}

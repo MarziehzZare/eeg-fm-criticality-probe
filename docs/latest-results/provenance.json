@@ -1,0 +1,34 @@
+{
+  "evidence_cutoff": "2026-11-04",
+  "repository_update": "2026-11-06",
+  "sources": [
+    {
+      "workspace_relative_path": "submission/manuscript.tex",
+      "sha256": "de4ca667485b7e9246a08ce7809d266b51967dff657fa20f3389cd1dc3067d12"
+    },
+    {
+      "workspace_relative_path": "submission/ESM_1.tex",
+      "sha256": "4fe19224d05abb8fc579359686d82e5868b40cf17de58a614f84d1ece23d0139"
+    },
+    {
+      "workspace_relative_path": "submission/real_comparison_table.tex",
+      "sha256": "87556e1b31d4f2d3212757e2ca5628f07a1216e33b7fac52a730a12da0bae82a"
+    },
+    {
+      "workspace_relative_path": "support/research/posthoc_v6/A_familywise/a_familywise.json",
+      "sha256": "6432264fbdc2aab4bc3520e4e8a4ab2fdab434b5a5b023a750eaf48f8930bbac"
+    },
+    {
+      "workspace_relative_path": "support/research/posthoc_v6/protocol.md",
+      "sha256": "750c58f2bf962e53ca8b1275f17f60dc558c97803003fc8e2bcbbdc3ec6a4b73"
+    },
+    {
+      "workspace_relative_path": "support/research/paired_reve_power_v1/results.json",
+      "sha256": "27c40f22fe7fffd0941112fcb409abae3913bf1728b0084dd68558ef188313e9"
+    },
+    {
+      "workspace_relative_path": "support/research/paired_reve_power_v1/protocol.md",
+      "sha256": "0f3afc627a3d5542cec7aaf6cfff9d9508a19f08a39edfc2ab50a03ca6e8e250"
+    }
+  ]
+}

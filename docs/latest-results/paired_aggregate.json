@@ -1,0 +1,56 @@
+{
+  "source_protocol_sha256": "0f3afc627a3d5542cec7aaf6cfff9d9508a19f08a39edfc2ab50a03ca6e8e250",
+  "scope": "Exploratory paired comparisons conditional on fixed predictions. Individual intervals precede family-wise correction; use familywise.json for corrected inference.",
+  "cohorts": {
+    "ds004504": {
+      "out_of_fold": {
+        "primary": {
+          "reve_r2": 0.6478586888808768,
+          "signal_r2": 0.5223914722890879,
+          "delta_r2": 0.12546721659178892,
+          "n": 45,
+          "ci_low": 0.01368065782839305,
+          "ci_high": 0.33044992681303126
+        },
+        "secondary_raw": {
+          "reve_r2": 0.6299272066602937,
+          "signal_r2": 0.5076228283860922,
+          "delta_r2": 0.12230437827420153,
+          "n": 45,
+          "ci_low": -0.0032210759514488493,
+          "ci_high": 0.37088795569158967
+        }
+      }
+    },
+    "caueeg": {
+      "primary": {
+        "primary": {
+          "reve_r2": 0.7458303293478223,
+          "signal_r2": 0.6691632607072289,
+          "delta_r2": 0.07666706864059357,
+          "n": 11
+        },
+        "secondary_raw": {
+          "reve_r2": 0.7382624305906382,
+          "signal_r2": 0.6840164006534131,
+          "delta_r2": 0.054246029937225174,
+          "n": 11
+        }
+      },
+      "strict_mask": {
+        "primary": {
+          "reve_r2": 0.45163943802150264,
+          "signal_r2": 0.4647446467375882,
+          "delta_r2": -0.013105208716085517,
+          "n": 6
+        },
+        "secondary_raw": {
+          "reve_r2": 0.27873696232498546,
+          "signal_r2": 0.4754474207354641,
+          "delta_r2": -0.19671045841047863,
+          "n": 6
+        }
+      }
+    }
+  }
+}
