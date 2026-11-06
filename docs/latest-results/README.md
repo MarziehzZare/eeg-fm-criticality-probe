@@ -85,6 +85,14 @@ does not test adding REVE to a predictor already containing exponent and power.
 
 ## Evidence and release scope
 
+The public implementation is in
+[`scripts/latest_results`](../../scripts/latest_results). It reproduces the
+paired statistic, BCa interval, and max-statistic family-wise correction from
+fixed prediction arrays. See its README for the `.npz` input schema and
+commands. This is the portable analysis layer. The private extraction and
+readout stages remain local because they require restricted recordings,
+embeddings, or model assets.
+
 - [familywise.json](familywise.json): unchanged aggregate November 4 output,
   including both contrast families and the exact protocol hash.
 - [paired_aggregate.json](paired_aggregate.json): selected aggregate scores and
